@@ -1,0 +1,186 @@
+openapi: 3.0.0
+info:
+  title: jobs API
+  contact: {}
+  version: "1.0"
+servers:
+  - url: https://temp-job-api-dmhk.onrender.com/api/v1
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register user
+      operationId: Registeruser
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisteruserRequest"
+        required: true
+      responses:
+        "200":
+          description: ""
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login User
+      operationId: LoginUser
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginUserRequest"
+        required: true
+      responses:
+        "200":
+          description: ""
+  /jobs:
+    post:
+      tags:
+        - Jobs
+      summary: Create Jobs
+      operationId: CreateJobs
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateJobsRequest"
+        required: true
+      responses:
+        "200":
+          description: ""
+      security:
+        - bearer: []
+    get:
+      tags:
+        - Jobs
+      summary: Get All Jobs
+      operationId: GetAllJobs
+      responses:
+        "200":
+          description: ""
+      security:
+        - bearer: []
+  /jobs/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: the job id
+    get:
+      tags:
+        - Jobs
+      summary: Get Single Job
+      operationId: GetSingleJob
+      responses:
+        "200":
+          description: ""
+      security:
+        - bearer: []
+    patch:
+      tags:
+        - Jobs
+      summary: Update Job
+      operationId: UpdateJob
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateJobRequest"
+        required: true
+      responses:
+        "200":
+          description: ""
+      security:
+        - bearer: []
+    delete:
+      tags:
+        - Jobs
+      summary: Delete job
+      operationId: Deletejob
+      responses:
+        "200":
+          description: ""
+      security:
+        - bearer: []
+components:
+  schemas:
+    RegisteruserRequest:
+      title: RegisteruserRequest
+      required:
+        - name
+        - email
+        - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: "Dane"
+        email: dane@gmail.com
+        password: secret
+    LoginUserRequest:
+      title: LoginUserRequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: dane@gmail.com
+        password: secret
+    CreateJobsRequest:
+      title: CreateJobsRequest
+      required:
+        - company
+        - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: Apple
+        position: intern
+    UpdateJobRequest:
+      title: UpdateJobRequest
+      required:
+        - company
+        - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: THCO
+        position: "Backend developer"
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security: []
+tags:
+  - name: Auth
+    description: ""
+  - name: Jobs
+    description: ""
